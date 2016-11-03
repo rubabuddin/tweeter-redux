@@ -1,24 +1,27 @@
 package com.codepath.apps.tweeter.activities;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.method.LinkMovementMethod;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.codepath.apps.tweeter.R;
+import com.codepath.apps.tweeter.models.Tweet;
 import com.codepath.apps.tweeter.network.TwitterApplication;
 import com.codepath.apps.tweeter.network.TwitterClient;
-import com.codepath.apps.tweeter.models.Tweet;
 
 import org.parceler.Parcels;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class DetailsActivity extends AppCompatActivity {
 
@@ -91,5 +94,12 @@ public class DetailsActivity extends AppCompatActivity {
                 .fitCenter()
                 .into(ivProfile);
 
+    }
+
+    @OnClick(R.id.ivProfile)
+    public void onProfilePicClick(View view) {
+        Intent intent = new Intent(this, ProfileActivity.class);
+        intent.putExtra("user", Parcels.wrap(tweet.user));
+        this.startActivity(intent);
     }
 }

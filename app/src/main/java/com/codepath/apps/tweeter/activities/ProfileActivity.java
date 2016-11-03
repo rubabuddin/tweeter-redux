@@ -44,6 +44,8 @@ public class ProfileActivity extends AppCompatActivity {
     TextView tvFollowing;
     @BindView(R.id.tvBio)
     TextView tvBio;
+    @BindView(R.id.tvUserName) TextView tvUserName;
+    @BindView(R.id.tvProfileName) TextView tvProfileName;
 
     private ActivityProfileBinding binding;
     private User user;
@@ -68,6 +70,13 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     private void initUserInfo(){
+        tvUserName.setText(user.userName);
+        tvProfileName.setText(user.profileName);
+        tvFollowers.setText("" + user.followers);
+        tvFollowing.setText("" + user.following);
+        tvBio.setText(user.bio);
+
+
         Glide.with(this).load(user.profileImageUrl)
                 .fitCenter().centerCrop()
                 .bitmapTransform(new RoundedCornersTransformation(this, 5, 0))

@@ -31,8 +31,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-import static com.codepath.apps.tweeter.R.id.btnReply;
-
 
 /**
  * Created by rubab.uddin on 10/27/2016.
@@ -70,8 +68,7 @@ public class TweetsArrayAdapter extends RecyclerView.Adapter<TweetsArrayAdapter.
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_tweet_media, parent, false);
             viewHolder = new ViewHolderTweetMedia(view);
         }
-        //this.context = viewHolder.context;
-        //this.fragmentManager = viewHolder.fragmentManager;
+
         return viewHolder;
     }
 

@@ -55,11 +55,11 @@ public class User extends Model {
             userName = "@" + json.getString("screen_name");
             profileName = json.getString("name");
             uid = json.getLong("id");
-            profileImageUrl = json.getString("profile_image_url");
+            profileImageUrl = json.getString("profile_image_url").replace("normal", "bigger");
             profileBackgroundImageUrl = json.getString("profile_background_image_url");
             followers = json.getInt("followers_count");
             following = json.getInt("friends_count");
-            bio = json.getString("bio");
+            bio = json.getString("description");
         } catch (JSONException e) {
             e.printStackTrace();
         }
