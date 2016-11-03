@@ -3,8 +3,10 @@ package com.codepath.apps.tweeter.adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.graphics.Typeface;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -68,8 +70,8 @@ public class TweetsArrayAdapter extends RecyclerView.Adapter<TweetsArrayAdapter.
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_tweet_media, parent, false);
             viewHolder = new ViewHolderTweetMedia(view);
         }
-        this.context = viewHolder.context;
-        this.fragmentManager = viewHolder.fragmentManager;
+        //this.context = viewHolder.context;
+        //this.fragmentManager = viewHolder.fragmentManager;
         return viewHolder;
     }
 
@@ -86,10 +88,12 @@ public class TweetsArrayAdapter extends RecyclerView.Adapter<TweetsArrayAdapter.
             viewHolderTweetMedia.onBind(tweet);
 
             EmbeddedMedia embeddedMedia = tweet.embeddedMedia;
-            Glide.with(context)
-                    .load(embeddedMedia.mediaUrl)
-                    .centerCrop().
-                    into(viewHolderTweetMedia.ivMedia);
+            if(embeddedMedia != null) {
+                Glide.with(this.context)
+                        .load(embeddedMedia.mediaUrl)
+                        .centerCrop()
+                        .into(viewHolderTweetMedia.ivMedia);
+            }
         }
         if (tweet.favorited) {
             viewHolder.btnFavorite.setBackgroundResource(R.drawable.twitter_favorite_on);
@@ -103,7 +107,7 @@ public class TweetsArrayAdapter extends RecyclerView.Adapter<TweetsArrayAdapter.
             viewHolder.btnRetweet.setBackgroundResource(R.drawable.twitter_retweet);
         }
 
-/*
+
         Typeface tf = Typeface.createFromAsset(getContext().getAssets(), "fonts/HelveticaNeue-Regular.ttf");
 
         //find subviews to fill with data in the template
@@ -131,11 +135,9 @@ public class TweetsArrayAdapter extends RecyclerView.Adapter<TweetsArrayAdapter.
                 .error(R.drawable.twitter_user)
                 .fitCenter()
                 .into(viewHolder.ivProfile);
-*/}
+    }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        protected FragmentManager fragmentManager;
-        protected Context context;
         protected Tweet tweet;
 
         @BindView(R.id.ivProfile)

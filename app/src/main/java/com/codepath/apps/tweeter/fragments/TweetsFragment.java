@@ -79,7 +79,8 @@ public abstract class TweetsFragment extends Fragment implements ComposeTweetDia
     }
 
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
         mContext = getActivity();
         client = TwitterApplication.getRestClient();
         sqlHelper = SQLHelper.getHelper();
@@ -161,6 +162,7 @@ public abstract class TweetsFragment extends Fragment implements ComposeTweetDia
             int curSize = tweets.size();
             tweets.addAll(Tweet.fromJSONArray(response));
             aTweets.notifyItemRangeInserted(curSize, tweets.size());
+            swipeContainer.setRefreshing(false);
             setOfflineData();
         }
         @Override

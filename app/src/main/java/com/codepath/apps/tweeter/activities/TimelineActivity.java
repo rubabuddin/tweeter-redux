@@ -13,7 +13,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.codepath.apps.tweeter.R;
 import com.codepath.apps.tweeter.adapters.TweetsPagerAdapter;
 import com.codepath.apps.tweeter.models.User;
@@ -27,6 +32,8 @@ import org.parceler.Parcels;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cz.msebera.android.httpclient.Header;
+import de.hdodenhof.circleimageview.CircleImageView;
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 public class TimelineActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -44,6 +51,9 @@ public class TimelineActivity extends AppCompatActivity implements NavigationVie
     ViewPager viewPager;
     @BindView(R.id.drawer_layout)
     DrawerLayout drawerLayout;
+    @BindView(R.id.navigation_view)
+    NavigationView navigationView;
+    RelativeLayout headerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,8 +67,9 @@ public class TimelineActivity extends AppCompatActivity implements NavigationVie
 
         client = TwitterApplication.getRestClient(); //used for all endpoints across the app
 
-        initializeViewPager();
         setAuthenticatedUser();
+        setupNavDrawer();
+        initializeViewPager();
     }
 
     private void initializeViewPager(){
@@ -90,6 +101,36 @@ public class TimelineActivity extends AppCompatActivity implements NavigationVie
         authenticatedUser = User.getAuthenticatedUser();
         if (authenticatedUser == null) {
             getUser();
+        }
+    }
+
+    private void setupNavDrawer(){
+        View view = navigationView.getHeaderView(0);
+        headerView = (RelativeLayout) view.findViewById(R.id.header_nav);
+        headerView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                gotoProfile();
+            }
+        });
+
+        TextView tvProfileName = (TextView) view.findViewById(R.id.tvProfileName);
+        tvProfileName.setText(authenticatedUser.profileName);
+
+        TextView tvUserName = (TextView) view.findViewById(R.id.tvUserName);
+        tvUserName.setText(authenticatedUser.userName);
+
+        CircleImageView ivProfile = (CircleImageView) view.findViewById(R.id.ivProfile);
+        Glide.with(this).load(authenticatedUser.profileImageUrl)
+                .fitCenter().centerCrop()
+                .bitmapTransform(new RoundedCornersTransformation(this, 25, 0))
+                .into(ivProfile);
+
+        ImageView ivHeader = (ImageView) view.findViewById(R.id.ivHeader);
+        if (authenticatedUser.profileBackgroundImageUrl != null) {
+            Glide.with(this).load(authenticatedUser.profileBackgroundImageUrl)
+                    .fitCenter().centerCrop()
+                    .into(ivHeader);
         }
     }
 
@@ -129,9 +170,7 @@ public class TimelineActivity extends AppCompatActivity implements NavigationVie
         drawerLayout.closeDrawer(GravityCompat.START);
         switch(id) {
             case R.id.navigation_profile:
-                Intent intent = new Intent(TimelineActivity.this, ProfileActivity.class);
-                intent.putExtra("user", Parcels.wrap(authenticatedUser));
-                startActivity(intent);
+                gotoProfile();
                 break;
             case R.id.navigation_mentions:
                 //start fragment?
@@ -143,6 +182,12 @@ public class TimelineActivity extends AppCompatActivity implements NavigationVie
                 break;
         }
         return true;
+    }
+
+    private void gotoProfile() {
+        Intent intent = new Intent(TimelineActivity.this, ProfileActivity.class);
+        intent.putExtra("user", Parcels.wrap(authenticatedUser));
+        startActivity(intent);
     }
 }
 

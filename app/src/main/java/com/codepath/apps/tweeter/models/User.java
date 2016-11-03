@@ -30,13 +30,12 @@ public class User extends Model {
     @Column(name = "ProfileImageUrl")
     public String profileImageUrl;
 
+    @Column(name = "ProfileBackgroundImageUrl")
+    public String profileBackgroundImageUrl;
+
     // empty constructor needed by ActiveAndroid and the Parceler library
     public User() {
         super();
-    }
-
-    public String getProfileImageUrl() {
-        return profileImageUrl;
     }
 
     //deserialize the user JSON => USer
@@ -47,6 +46,7 @@ public class User extends Model {
             profileName = json.getString("name");
             uid = json.getLong("id");
             profileImageUrl = json.getString("profile_image_url");
+            profileBackgroundImageUrl = json.getString("profile_background_image_url");
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -55,7 +55,6 @@ public class User extends Model {
     public static void saveUser(User user) {
         user.save();
     }
-
 
     public static User getAuthenticatedUser() {
         List<User> users = new Select().from(User.class).execute();

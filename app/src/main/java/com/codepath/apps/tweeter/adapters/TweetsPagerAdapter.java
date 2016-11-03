@@ -44,9 +44,10 @@ public class TweetsPagerAdapter extends FragmentPagerAdapter {
     }
 
     // Returns the page title for the top indicator
+    /*
     @Override
     public CharSequence getPageTitle(int position) {
         return "Page " + position;
     }
-
+*/
 }
