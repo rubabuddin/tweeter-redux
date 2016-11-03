@@ -14,8 +14,9 @@ import java.util.List;
 /**
  * Created by rubab.uddin on 10/25/2016.
  */
-@Table(name = "User")
+
 @Parcel (analyze = {User.class})
+@Table(name = "User")
 public class User extends Model {
 
     @Column(name = "UserId")
@@ -33,6 +34,15 @@ public class User extends Model {
     @Column(name = "ProfileBackgroundImageUrl")
     public String profileBackgroundImageUrl;
 
+    @Column(name = "Followers")
+    public int followers;
+
+    @Column(name = "Following")
+    public int following;
+
+    @Column(name = "Bio")
+    public String bio;
+
     // empty constructor needed by ActiveAndroid and the Parceler library
     public User() {
         super();
@@ -47,6 +57,9 @@ public class User extends Model {
             uid = json.getLong("id");
             profileImageUrl = json.getString("profile_image_url");
             profileBackgroundImageUrl = json.getString("profile_background_image_url");
+            followers = json.getInt("followers_count");
+            following = json.getInt("friends_count");
+            bio = json.getString("bio");
         } catch (JSONException e) {
             e.printStackTrace();
         }

@@ -20,10 +20,11 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.codepath.apps.tweeter.R;
-import com.codepath.apps.tweeter.network.TwitterApplication;
-import com.codepath.apps.tweeter.network.TwitterClient;
+import com.codepath.apps.tweeter.helpers.SQLHelper;
 import com.codepath.apps.tweeter.models.Tweet;
 import com.codepath.apps.tweeter.models.User;
+import com.codepath.apps.tweeter.network.TwitterApplication;
+import com.codepath.apps.tweeter.network.TwitterClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 import org.json.JSONException;
@@ -89,7 +90,7 @@ public class ComposeTweetDialogFragment extends DialogFragment {
         super.onViewCreated(view, savedInstanceState);
 
         charLength = 140;
-        user = Parcels.unwrap(getArguments().getParcelable("user"));
+        user = SQLHelper.getHelper().getAuthenticatedUser();
         if (user != null) {
             initDialog();
         } else {
@@ -143,7 +144,7 @@ public class ComposeTweetDialogFragment extends DialogFragment {
     }
 
     private void sendSuccess(Tweet newTweet) {
-        ComposeTweetDialogListener listener = (ComposeTweetDialogListener) getActivity();
+        ComposeTweetDialogListener listener = (ComposeTweetDialogListener) getParentFragment();
         if (listener != null) {
             listener.onUpdateStatusSuccess(newTweet);
         }

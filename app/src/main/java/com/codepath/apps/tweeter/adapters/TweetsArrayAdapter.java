@@ -198,7 +198,7 @@ public class TweetsArrayAdapter extends RecyclerView.Adapter<TweetsArrayAdapter.
         }
     }
 
-    @OnClick(btnReply)
+    @OnClick(R.id.btnReply)
     public void onReply(View view) {
         ComposeTweetDialogFragment composeTweetDialogFragment = ComposeTweetDialogFragment.newInstance(tweet);
         composeTweetDialogFragment.show(fragmentManager, "fragment_compose_tweet");

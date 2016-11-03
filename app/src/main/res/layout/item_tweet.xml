@@ -85,8 +85,7 @@
             android:layout_height="15dp"
             android:layout_below="@+id/tvBody"
             android:background="@drawable/twitter_reply"
-            android:layout_alignLeft="@id/tvBody"
-            android:tint="@color/colorAccent"/>
+            android:layout_alignLeft="@id/tvBody"/>
 
         <Button
             android:id="@+id/btnRetweet"
@@ -95,8 +94,8 @@
             android:layout_below="@+id/tvBody"
             android:layout_marginLeft="75dp"
             android:layout_alignLeft="@id/btnReply"
-            android:background="@drawable/twitter_retweet"
-            android:tint="@color/colorAccent"/>
+            android:background="@drawable/twitter_retweet"/>
+
 
         <TextView
             android:id="@+id/tvRetweet"
@@ -116,8 +115,7 @@
             android:layout_marginLeft="75dp"
             android:layout_alignLeft="@id/tvRetweet"
             android:background="@drawable/twitter_favorite"
-            android:layout_below="@+id/tvBody"
-            android:tint="@color/colorAccent"/>
+            android:layout_below="@+id/tvBody"/>
 
         <TextView
             android:id="@+id/tvFavorite"

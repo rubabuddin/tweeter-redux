@@ -21,6 +21,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.codepath.apps.tweeter.R;
 import com.codepath.apps.tweeter.adapters.TweetsPagerAdapter;
+import com.codepath.apps.tweeter.helpers.SQLHelper;
 import com.codepath.apps.tweeter.models.User;
 import com.codepath.apps.tweeter.network.TwitterApplication;
 import com.codepath.apps.tweeter.network.TwitterClient;
@@ -67,9 +68,9 @@ public class TimelineActivity extends AppCompatActivity implements NavigationVie
 
         client = TwitterApplication.getRestClient(); //used for all endpoints across the app
 
-        setAuthenticatedUser();
-        setupNavDrawer();
         initializeViewPager();
+        setAuthenticatedUser();
+
     }
 
     private void initializeViewPager(){
@@ -99,7 +100,10 @@ public class TimelineActivity extends AppCompatActivity implements NavigationVie
 
     private void setAuthenticatedUser() {
         authenticatedUser = User.getAuthenticatedUser();
-        if (authenticatedUser == null) {
+        if (authenticatedUser != null){
+            SQLHelper.getHelper().setAuthenticatedUser(authenticatedUser);
+            setupNavDrawer();
+        } else {
             getUser();
         }
     }
@@ -129,6 +133,7 @@ public class TimelineActivity extends AppCompatActivity implements NavigationVie
         ImageView ivHeader = (ImageView) view.findViewById(R.id.ivHeader);
         if (authenticatedUser.profileBackgroundImageUrl != null) {
             Glide.with(this).load(authenticatedUser.profileBackgroundImageUrl)
+                    .asBitmap()
                     .fitCenter().centerCrop()
                     .into(ivHeader);
         }
@@ -144,6 +149,8 @@ public class TimelineActivity extends AppCompatActivity implements NavigationVie
                 authenticatedUser.fromJSON(response);
                 if (authenticatedUser != null) {
                     User.saveUser(authenticatedUser);
+                    SQLHelper.getHelper().setAuthenticatedUser(authenticatedUser);
+                    setupNavDrawer();
                 } else {
                     Log.e("ERROR", "User = NULL ");
                 }

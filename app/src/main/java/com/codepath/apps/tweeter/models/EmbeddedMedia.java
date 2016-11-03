@@ -12,8 +12,8 @@ import org.parceler.Parcel;
  * Created by rubab.uddin on 10/30/2016.
  */
 
-@Table(name = "EmbeddedMedia")
 @Parcel(analyze = {EmbeddedMedia.class})
+@Table(name = "EmbeddedMedia")
 public class EmbeddedMedia extends Model {
 
     @Column(name = "MediaId")

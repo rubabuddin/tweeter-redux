@@ -3,6 +3,7 @@ package com.codepath.apps.tweeter.helpers;
 import com.activeandroid.query.Select;
 import com.activeandroid.util.SQLiteUtils;
 import com.codepath.apps.tweeter.models.Tweet;
+import com.codepath.apps.tweeter.models.User;
 
 import java.util.List;
 
@@ -13,6 +14,7 @@ import java.util.List;
 public class SQLHelper {
 
     private static SQLHelper sqlHelper;
+    private User authenticatedUser;
 
     public static SQLHelper getHelper() {
         if (sqlHelper == null) {
@@ -42,5 +44,13 @@ public class SQLHelper {
 
     public void clearTweets() {
         SQLiteUtils.execSql("DELETE FROM Tweet");
+    }
+
+    public void setAuthenticatedUser(User user) {
+        authenticatedUser = user;
+    }
+
+    public User getAuthenticatedUser() {
+        return authenticatedUser;
     }
 }
