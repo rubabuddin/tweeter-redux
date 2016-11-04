@@ -86,7 +86,6 @@ public abstract class TweetsFragment extends Fragment implements ComposeTweetDia
         sqlHelper = SQLHelper.getHelper();
 
         setupSwipeToRefresh();
-        //setAuthenticatedUser();
         initializeTimeline();
     }
 
@@ -156,7 +155,7 @@ public abstract class TweetsFragment extends Fragment implements ComposeTweetDia
                 tweets.clear();
                 aTweets.notifyItemRangeRemoved(0, tweetsListSize);
                 Log.d("DEBUG", aTweets.toString());
-                //clearOfflineData();
+                clearOfflineData();
             }
 
             int curSize = tweets.size();

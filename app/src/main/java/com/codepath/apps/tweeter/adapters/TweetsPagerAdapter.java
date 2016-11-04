@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.codepath.apps.tweeter.fragments.HomeTimelineTweetsFragment;
+import com.codepath.apps.tweeter.fragments.MentionsTimelineTweetsFragment;
 
 /**
  * Created by rubab.uddin on 11/1/2016.
@@ -22,7 +23,6 @@ public class TweetsPagerAdapter extends FragmentPagerAdapter {
         this.context = context;
         this.fragmentManager = fragmentManager;
     }
-
     // Returns total number of pages
     @Override
     public int getCount() {
@@ -36,18 +36,9 @@ public class TweetsPagerAdapter extends FragmentPagerAdapter {
             case 0: // Fragment # 0 - This will show FirstFragment
                 return HomeTimelineTweetsFragment.newInstance(fragmentManager);
             case 1: // Fragment # 0 - This will show FirstFragment different title
-                return HomeTimelineTweetsFragment.newInstance(fragmentManager);
-                //return MentionsTimelineTweetsFragment.newInstance(fragmentManager);
+                return MentionsTimelineTweetsFragment.newInstance(fragmentManager);
             default:
                 return null;
         }
     }
-
-    // Returns the page title for the top indicator
-    /*
-    @Override
-    public CharSequence getPageTitle(int position) {
-        return "Page " + position;
-    }
-*/
 }

@@ -8,4 +8,5 @@
     <string name="tweet">Tweet</string>
     <string name="following">FOLLOWING</string>
     <string name="followers">FOLLOWERS</string>
+    <string name="no_internet">No internet connection detected</string>
 </resources>

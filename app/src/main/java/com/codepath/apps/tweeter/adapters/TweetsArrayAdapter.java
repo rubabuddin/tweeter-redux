@@ -117,7 +117,7 @@ public class TweetsArrayAdapter extends RecyclerView.Adapter<TweetsArrayAdapter.
         viewHolder.tvProfileName.setText(tweet.user.profileName);
         viewHolder.tvProfileName.setTypeface(tf);
 
-        viewHolder.tvTime.setText(tweet.createdAt);
+        viewHolder.tvTime.setText(tweet.timeAgo);
         viewHolder.tvTime.setTypeface(tf);
 
         viewHolder.tvRetweet.setText(String.valueOf(tweet.retweetCount));

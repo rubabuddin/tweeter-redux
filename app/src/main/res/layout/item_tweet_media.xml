@@ -79,7 +79,7 @@
             android:paddingRight="8dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="1d"
+            android:text="@{tweet.timeAgo}"
             android:id="@+id/tvTime"
             android:layout_alignTop="@+id/tvUserName"
             android:layout_alignParentRight="true"

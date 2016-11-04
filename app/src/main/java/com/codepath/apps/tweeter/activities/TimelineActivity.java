@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.GravityCompat;
@@ -25,6 +26,7 @@ import com.codepath.apps.tweeter.helpers.SQLHelper;
 import com.codepath.apps.tweeter.models.User;
 import com.codepath.apps.tweeter.network.TwitterApplication;
 import com.codepath.apps.tweeter.network.TwitterClient;
+import com.codepath.apps.tweeter.network.Utils;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 import org.json.JSONObject;
@@ -66,11 +68,25 @@ public class TimelineActivity extends AppCompatActivity implements NavigationVie
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        client = TwitterApplication.getRestClient(); //used for all endpoints across the app
-
+        View parentLayout = findViewById(R.id.activity_timeline);
         initializeViewPager();
-        setAuthenticatedUser();
+        final Snackbar snackBar = Snackbar.make(parentLayout, R.string.no_internet, Snackbar.LENGTH_INDEFINITE);;
+        snackBar.setAction("Retry", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                snackBar.dismiss();
+                client = TwitterApplication.getRestClient(); //used for all endpoints across the app
+                setAuthenticatedUser();
+            }
+        });
+        snackBar.show();
 
+
+        if(Utils.isOnline()) {
+            snackBar.dismiss();
+            client = TwitterApplication.getRestClient(); //used for all endpoints across the app
+            setAuthenticatedUser();
+        }
     }
 
     private void initializeViewPager(){
@@ -174,25 +190,24 @@ public class TimelineActivity extends AppCompatActivity implements NavigationVie
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
+        TabLayout.Tab tab;
         drawerLayout.closeDrawer(GravityCompat.START);
-        switch(id) {
-            case R.id.navigation_profile:
-                gotoProfile();
-                break;
-            case R.id.navigation_mentions:
-                //start fragment?
-                break;
-            case R.id.navigation_trending:
-                //start fragment
-                break;
-            default:
-                break;
+        if(id == R.id.navigation_profile) {
+            drawerLayout.closeDrawer(GravityCompat.END);
+            gotoProfile();
+        }
+         else if (id == R.id.navigation_mentions) {
+            tab = tabLayout.getTabAt(1);
+            tab.select();
+        }
+        else if(id == R.id.navigation_trending){
+            drawerLayout.closeDrawer(GravityCompat.END);
         }
         return true;
     }
 
     private void gotoProfile() {
-        Intent intent = new Intent(TimelineActivity.this, ProfileActivity.class);
+        Intent intent = new Intent(this, ProfileActivity.class);
         intent.putExtra("user", Parcels.wrap(authenticatedUser));
         startActivity(intent);
     }

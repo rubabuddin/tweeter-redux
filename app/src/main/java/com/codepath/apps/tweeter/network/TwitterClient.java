@@ -97,6 +97,20 @@ public class TwitterClient extends OAuthBaseClient {
 		getClient().get(apiUrl, params, handler);
 	}
 
+
+	// GET statuses/mentions_timeline.json
+	public void getMentionsTimeline(long maxId, AsyncHttpResponseHandler handler) {
+		String apiUrl = getApiUrl("statuses/mentions_timeline.json");
+		RequestParams params = new RequestParams();
+		params.put("count", 25);
+		if (maxId != -1) {
+			params.put("max_id", maxId);
+		} else {
+			params.put("since_id", 1);
+		}
+		getClient().get(apiUrl, params, handler);
+	}
+
 	/* 1. Define the endpoint URL with getApiUrl and pass a relative path to the endpoint
 	 * 	  i.e getApiUrl("statuses/home_timeline.json");
 	 * 2. Define the parameters to pass to the request (query or body)
@@ -104,17 +118,5 @@ public class TwitterClient extends OAuthBaseClient {
 	 * 3. Define the request method and make a call to the client
 	 *    i.e client.get(apiUrl, params, handler);
 	 *    i.e client.post(apiUrl, params, handler);
-
-
-	Endpoints
-			BASE_URL = https://api.twitter.com/1.1
-	Get the home timeline from the user
-	GET "/statuses/home_timeline.json"
-	count=25 (number of tweets to get)
-	since_id=1 (all recent tweets, sorted by most recent)
-	Pasted from <https://dev.twitter.com/rest/reference/get/statuses/home_timeline>
-
-	Create a new tweet
-			POST
  */
 }

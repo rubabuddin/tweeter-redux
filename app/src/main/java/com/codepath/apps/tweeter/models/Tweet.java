@@ -41,6 +41,9 @@ public class Tweet extends Model{
     @Column(name = "CreatedAt")
     public String createdAt;
 
+    @Column(name = "TimeAgo")
+    public String timeAgo;
+
     @Column(name = "Retweeted")
     public boolean retweeted;
 
@@ -62,14 +65,14 @@ public class Tweet extends Model{
     }
 
     public void getTimeAgo() {
-        String timeAgo = getRelativeTimeAgo(createdAt);
+        String tempTimeAgo = getRelativeTimeAgo(createdAt);
         String regex = "^(\\d+)\\s(\\S).*";
 
         final Pattern pattern = Pattern.compile(regex);
-        final Matcher matcher = pattern.matcher(timeAgo);
+        final Matcher matcher = pattern.matcher(tempTimeAgo);
 
         while (matcher.find()) {
-            createdAt = matcher.group(1) + matcher.group(2);
+            timeAgo = matcher.group(1) + matcher.group(2);
         }
     }
 

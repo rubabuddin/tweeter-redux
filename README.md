@@ -1,17 +1,17 @@
-# Project 4 - *Name of App Here*
+# Project 4 - *Tweeter 2.0*
 
-**Name of your app** is an android app that allows a user to view home and mentions timelines, view user profiles with user timelines, as well as compose and post a new tweet. The app utilizes [Twitter REST API](https://dev.twitter.com/rest/public).
+**Tweeter 2.0** is an android app that allows a user to view home and mentions timelines, view user profiles with user timelines, as well as compose and post a new tweet. The app utilizes [Twitter REST API](https://dev.twitter.com/rest/public).
 
-Time spent: **X** hours spent in total
+Time spent: **12** hours spent in total
 
 ## User Stories
 
 The following **required** functionality is completed:
 
 * [X] The app includes **all required user stories** from Week 3 Twitter Client
-* [ ] User can **switch between Timeline and Mention views using tabs**
+* [X] User can **switch between Timeline and Mention views using tabs**
   * [X] User can view their home timeline tweets.
-  * [ ] User can view the recent mentions of their username.
+  * [X] User can view the recent mentions of their username.
 * [X] User can navigate to **view their own profile**
   * [X] User can see picture, tagline, # of followers, # of following, and tweets on their profile.
 * [X] User can **click on the profile image** in any tweet to see **another user's** profile.
@@ -22,13 +22,13 @@ The following **required** functionality is completed:
 The following **optional** features are implemented:
 
 * [ ] User can view following / followers list through the profile
-* [ ] Implements robust error handling, [check if internet is available](http://guides.codepath.com/android/Sending-and-Managing-Network-Requests#checking-for-network-connectivity), handle error cases, network failures
+* [X] Implements robust error handling, [check if internet is available](http://guides.codepath.com/android/Sending-and-Managing-Network-Requests#checking-for-network-connectivity), handle error cases, network failures
 * [ ] When a network request is sent, user sees an [indeterminate progress indicator](http://guides.codepath.com/android/Handling-ProgressBars#progress-within-actionbar)
-* [ ] User can **"reply" to any tweet on their home timeline**
-  * [ ] The user that wrote the original tweet is automatically "@" replied in compose
+* [X] User can **"reply" to any tweet on their home timeline**
+  * [X] The user that wrote the original tweet is automatically "@" replied in compose
 * [X] User can click on a tweet to be **taken to a "detail view"** of that tweet
  * [ ] User can take favorite (and unfavorite) or retweet actions on a tweet
-* [ ] Improve the user interface and theme the app to feel twitter branded
+* [X] Improve the user interface and theme the app to feel twitter branded
 * [ ] User can **search for tweets matching a particular query** and see results
 * [ ] Usernames and hashtags are styled and clickable within tweets [using clickable spans](http://guides.codepath.com/android/Working-with-the-TextView#creating-clickable-styled-spans)
 
@@ -37,11 +37,13 @@ The following **bonus** features are implemented:
 * [X] Use Parcelable instead of Serializable using the popular [Parceler library](http://guides.codepath.com/android/Using-Parceler).
 * [X] Leverages the [data binding support module](http://guides.codepath.com/android/Applying-Data-Binding-for-Views) to bind data into layout templates.
 * [X] On the profile screen, leverage the [CoordinatorLayout](http://guides.codepath.com/android/Handling-Scrolls-with-CoordinatorLayout#responding-to-scroll-events) to [apply scrolling behavior](https://hackmd.io/s/SJyDOCgU) as the user scrolls through the profile timeline.
-* [ ] User can view their direct messages (or send new ones)
 
 The following **additional** features are implemented:
 
-* [ ] List anything else that you can get done to improve the app functionality!
+* [X] Using [ActiveAndroid ORM](http://www.activeandroid.com/) for managing client side models 
+* [X] Using Butterknife to bind layout items
+* [X] UI work to get identical look and feel of Twitter app (fonts, colours/icons, circular imageviews, UI placement)
+* [X] Implemented Navigation Drawer with custom nav header
 
 ## Video Walkthrough
 
@@ -53,16 +55,21 @@ GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 ## Notes
 
-Describe any challenges encountered while building the app.
+Wrote a lot of boiler plate code at first but then realized I could reuse the fragments since they were very alike. Getting the layout for the profile view also proved to be difficult.
 
 ## Open-source libraries used
 
 - [Android Async HTTP](https://github.com/loopj/android-async-http) - Simple asynchronous HTTP requests with JSON parsing
 - [Picasso](http://square.github.io/picasso/) - Image loading and caching library for Android
+- [ActiveAndroid ORM](http://www.activeandroid.com/) for managing client side models 
+- [Glide](https://github.com/bumptech/glide) - An image loading and caching library for Android focused on smooth scrolling.
+- [Parceler](http://parceler.org/) - Android Parcelable code generator for Google Android.
+- [ItemClickSupport] (http://www.littlerobots.nl/blog/Handle-Android-RecyclerView-Clicks/)
+
 
 ## License
 
-    Copyright [yyyy] [name of copyright owner]
+    Copyright [2016] [Rubab Uddin]
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.

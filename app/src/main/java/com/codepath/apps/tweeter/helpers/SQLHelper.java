@@ -43,7 +43,7 @@ public class SQLHelper {
     }
 
     public void clearTweets() {
-        SQLiteUtils.execSql("DELETE FROM Tweet");
+        SQLiteUtils.execSql("DELETE FROM Tweets");
     }
 
     public void setAuthenticatedUser(User user) {

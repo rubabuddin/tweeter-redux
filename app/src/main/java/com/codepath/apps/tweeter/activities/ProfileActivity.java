@@ -97,20 +97,4 @@ public class ProfileActivity extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
-    @OnClick(R.id.tvFollowing)
-    public void onFollowingClick(View view) {
-        Intent intent = new Intent(this, UserListActivity.class);
-        intent.putExtra("user", user.uid);
-        intent.putExtra("list-type", "following");
-        startActivity(intent);
-    }
-
-    @OnClick(R.id.tvFollowers)
-    public void onFollowersClick(View view) {
-        Intent intent = new Intent(this, UserListActivity.class);
-        intent.putExtra("user", user.uid);
-        intent.putExtra("list-type", "followers");
-        startActivity(intent);
-    }
-
 }
